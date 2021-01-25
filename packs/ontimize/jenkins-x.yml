@@ -1,0 +1,20 @@
+buildPack: ontimize
+pipelineConfig:
+  pipelines:
+    overrides:
+      - pipeline: release
+        stage: promote
+        name: helm-release
+        steps:
+          - comment: release the helm chart
+            sh: helm init --client-only --stable-repo-url https://charts.helm.sh/stable && jx step helm release
+            name: helm-release
+        type: replace
+      - pipeline: release
+        stage: promote
+        name: jx-promote
+        steps:
+          - comment: promote through all 'Auto' promotion Environments
+            sh: helm init --client-only --stable-repo-url https://charts.helm.sh/stable && jx promote -b --all-auto --timeout 1h --version \$(cat ../../VERSION)
+            name: jx-promote
+        type: replace

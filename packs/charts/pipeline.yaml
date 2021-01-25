@@ -1,0 +1,18 @@
+agent:
+  label: jenkins-jx-base
+  container: gcr.io/jenkinsxio/builder-go
+pipelines:
+  pullRequest:
+    build:
+      steps:
+        - sh: make build
+          name: build
+  release:
+    build:
+      steps:
+        - sh: jx step credential -s jenkins-x-chartmuseum -k BASIC_AUTH_USER -f /tekton/home/basic-auth-user.json
+          name: basic-auth-username
+        - sh: jx step credential -s jenkins-x-chartmuseum -k BASIC_AUTH_PASS -f /tekton/home/basic-auth-pass.json
+          name: basic-auth-password
+        - sh: make release
+          name: release
