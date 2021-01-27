@@ -42,8 +42,6 @@ spec:
           value: {{ .Values.service.name }}
         - name: Subdomain 
           value: {{ .Values.jxRequirements.ingress.namespaceSubDomain }}
-        - name: Domain 
-          value: <%= domain %>
         envFrom:
 {{ toYaml .Values.envFrom | indent 10 }}
         ports:
