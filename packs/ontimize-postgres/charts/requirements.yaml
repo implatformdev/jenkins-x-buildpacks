@@ -1,0 +1,5 @@
+dependencies:
+- alias: postgresql
+  name: postgresql
+  repository: https://charts.bitnami.com/bitnami
+  version: 8.10.14

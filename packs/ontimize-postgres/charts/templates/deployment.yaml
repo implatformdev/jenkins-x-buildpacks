@@ -34,6 +34,16 @@ spec:
         - name: {{ $pkey }}
           value: {{ quote $pval }}
 {{- end }}
+        - name: RELEASE_NAME
+          value: {{ .Release.Name }}
+        - name: RELEASE_NAMESPACE
+          value: {{ .Release.Namespace }} 
+        - name: APPLICATION_NAME
+          value: {{ .Values.service.name }}
+        - name: NAMESPACE_SUBDOMAIN 
+          value: {{ .Values.jxRequirements.ingress.namespaceSubDomain }}
+        - name: DATABASE_SERVICE
+          value: {{ .Release.Name }}-postgresql
         envFrom:
 {{ toYaml .Values.envFrom | indent 10 }}
         ports:

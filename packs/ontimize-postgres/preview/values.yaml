@@ -20,3 +20,8 @@ preview:
     repository:
     tag:
     pullPolicy: IfNotPresent
+postgresql:
+  postgresqlPostgresPassword: test
+  postgresqlUsername: testuser
+  postgresqlPassword: testuser
+  postgresqlDatabase: demoontimize22    
