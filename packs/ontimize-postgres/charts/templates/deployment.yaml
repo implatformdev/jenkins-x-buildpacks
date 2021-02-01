@@ -43,7 +43,7 @@ spec:
         - name: NAMESPACE_SUBDOMAIN 
           value: {{ .Values.jxRequirements.ingress.namespaceSubDomain }}
         - name: DATABASE_SERVICE
-          value: {{ .Release.Name }}-postgresql
+          value: {{ .Release.Name }}-{{ .Chart.Name }}db
         envFrom:
 {{ toYaml .Values.envFrom | indent 10 }}
         ports:

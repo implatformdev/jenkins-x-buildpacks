@@ -8,12 +8,12 @@ dependencies:
   name: exposecontroller
   repository: http://chartmuseum.jenkins-x.io
   version: 2.3.92
-- alias: postgresql
+- alias: REPLACE_ME_APP_NAMEdb
   name: postgresql
   repository: https://charts.bitnami.com/bitnami
   version: 8.10.14
   # !! "alias: preview" must be last entry in dependencies array !!
   # !! Place custom dependencies above !!
 - alias: preview
-  name: demoontimize22
-  repository: file://../demoontimize22
+  name: REPLACE_ME_APP_NAME
+  repository: file://../REPLACE_ME_APP_NAME
