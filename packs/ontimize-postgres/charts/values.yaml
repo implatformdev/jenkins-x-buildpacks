@@ -97,4 +97,4 @@ postgresql:
   postgresqlPostgresPassword: test
   postgresqlUsername: testuser
   postgresqlPassword: testuser
-  postgresqlDatabase: demoontimize22
+  postgresqlDatabase: REPLACE_ME_APP_NAME
