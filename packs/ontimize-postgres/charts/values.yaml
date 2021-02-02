@@ -44,7 +44,7 @@ canary:
   host: acme.com
 
 service:
-  name: REPLACE_ME_APP_NAME
+  name: demoontimize22
   type: ClusterIP
   externalPort: 80
   internalPort: 8080
@@ -58,7 +58,7 @@ resources:
   requests:
     cpu: 400m
     memory: 512Mi
-probePath: /app/assets/css/loader.css
+probePath: /
 livenessProbe:
   initialDelaySeconds: 30
   periodSeconds: 10
@@ -93,3 +93,8 @@ jxRequirements:
     # shared ingress annotations on all services
     annotations:
     #  kubernetes.io/ingress.class: nginx
+postgresql:
+  postgresqlPostgresPassword: test
+  postgresqlUsername: testuser
+  postgresqlPassword: testuser
+  postgresqlDatabase: REPLACE_ME_APP_NAME

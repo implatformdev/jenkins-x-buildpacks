@@ -20,3 +20,8 @@ preview:
     repository:
     tag:
     pullPolicy: IfNotPresent
+postgresql:
+  postgresqlPostgresPassword: test
+  postgresqlUsername: testuser
+  postgresqlPassword: testuser
+  postgresqlDatabase: REPLACE_ME_APP_NAME    
