@@ -8,7 +8,7 @@ dependencies:
   name: exposecontroller
   repository: http://chartmuseum.jenkins-x.io
   version: 2.3.92
-- alias: REPLACE_ME_APP_NAMEdb
+- alias: previewdb
   name: postgresql
   repository: https://charts.bitnami.com/bitnami
   version: 8.10.14
