@@ -41,7 +41,7 @@ pipelines:
       steps:
       - sh: npm config set //nexus/repository/npm-private/:_auth=$(echo -n "admin:$(jx step credential -s nexus -k password)" | base64)
         name: npmrc
-      - sh: tail -f > /dev/null && npm publish  --registry=http://nexus/repository/npm-private/ .
+      - sh: npm publish  --registry=http://nexus/repository/npm-private/ .
         name: npm-publish
 
 #jx step next-version --filename package.json
