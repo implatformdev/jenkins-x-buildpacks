@@ -24,10 +24,10 @@ pipelines:
   release:
     setVersion:
       steps:
-      - sh: echo \$(jx-release-version) > VERSION
+      - sh: echo $(jx-release-version) > VERSION
         name: next-version
         comment: so we can retrieve the version in later steps
-      - sh: jx step tag --version \$(cat VERSION)
+      - sh: jx step tag --version $(cat VERSION)
         name: tag-version
       - sh: sed  -i '/version/s/[^:]*$/'" \"${VERSION}\",/" package.json
         name: package-version
