@@ -9,8 +9,6 @@ pipelines:
       steps:
       #- sh: jx step credential -s npm-token -k file -f /builder/home/.npmrc --optional=true
       #  name: npmrc
-      - sh: sed  -i '/version/s/[^:]*$/'" \"${VERSION}-SNAPSHOT-${BUILD_ID}\",/" package.json
-        name: set-package-version
       - sh: npm install
         name: npm-install
       #- sh: CI=true DISPLAY=:99 npm test
@@ -19,6 +17,8 @@ pipelines:
       steps:
       - sh: npm config set //nexus/repository/npm-private/:_auth=$(echo -n "admin:$(jx step credential -s nexus -k password)" | base64)
         name: npmrc
+      - sh: sed  -i '/version/s/[^:]*$/'" \"${VERSION}-SNAPSHOT-${BUILD_ID}\",/" package.json
+        name: set-package-version
       - sh: npm publish  --registry=http://nexus/repository/npm-private/ . 
         name: npm-publish
   release:
@@ -29,8 +29,6 @@ pipelines:
         comment: so we can retrieve the version in later steps
       - sh: jx step tag --version $(cat VERSION)
         name: tag-version
-      - sh: sed  -i '/version/s/[^:]*$/'" \"${VERSION}\",/" package.json
-        name: package-version
     build:
       steps:
       - sh: npm install
@@ -41,6 +39,8 @@ pipelines:
       steps:
       - sh: npm config set //nexus/repository/npm-private/:_auth=$(echo -n "admin:$(jx step credential -s nexus -k password)" | base64)
         name: npmrc
+      - sh: sed  -i '/version/s/[^:]*$/'" \"${VERSION}\",/" package.json
+        name: package-version
       - sh: npm publish  --registry=http://nexus/repository/npm-private/ .
         name: npm-publish
 
