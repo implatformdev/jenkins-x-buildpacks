@@ -17,7 +17,7 @@ pipelines:
       #  name: npm-test
     postBuild:
       steps:
-      - sh: npm config set //nexus/repository/npm-private/:_auth=$(echo "admin:$(jx step credential -s nexus -k password)" | base64)
+      - sh: npm config set //nexus/repository/npm-private/:_auth=$(echo -n "admin:$(jx step credential -s nexus -k password)" | base64)
         name: npmrc
       - sh: npm publish  --registry=http://nexus/repository/npm-private . 
         name: npm-publish
@@ -39,7 +39,7 @@ pipelines:
       #  name: npm-test
     postBuild:
       steps:
-      - sh: npm config set //nexus/repository/npm-private/:_auth=$(echo "admin:$(jx step credential -s nexus -k password)" | base64)
+      - sh: npm config set //nexus/repository/npm-private/:_auth=$(echo -n "admin:$(jx step credential -s nexus -k password)" | base64)
         name: npmrc
       - sh: npm publish  --registry=http://nexus/repository/npm-private .
         name: npm-publish
