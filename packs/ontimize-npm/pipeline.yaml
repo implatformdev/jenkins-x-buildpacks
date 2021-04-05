@@ -1,0 +1,51 @@
+extends:
+  import: classic
+  file: pipeline.yaml
+agent:
+  image: nodejs12x
+pipelines:
+  pullRequest:
+    build:
+      steps:
+      #- sh: jx step credential -s npm-token -k file -f /builder/home/.npmrc --optional=true
+      #  name: npmrc
+      - sh: sed  -i '/version/s/[^:]*$/'" \"${VERSION}-SNAPSHOT-${BUILD_ID}\",/" package.json
+        name: set-package-version
+      - sh: npm install
+        name: npm-install
+      #- sh: CI=true DISPLAY=:99 npm test
+      #  name: npm-test
+    postBuild:
+      steps:
+      - sh: npm config set //nexus/repository/npm-private/:_auth=$(echo "admin:$(jx step credential -s nexus -k password)" | base64)
+        name: npmrc
+      - sh: npm publish  --registry=http://nexus/repository/npm-private . 
+        name: npm-publish
+  release:
+    setVersion:
+      steps:
+      - sh: echo \$(jx-release-version) > VERSION
+        name: next-version
+        comment: so we can retrieve the version in later steps
+      - sh: jx step tag --version \$(cat VERSION)
+        name: tag-version
+      - sh: sed  -i '/version/s/[^:]*$/'" \"${VERSION}\",/" package.json
+        name: package-version
+    build:
+      steps:
+      - sh: npm install
+        name: npm-install
+      #- sh: CI=true DISPLAY=:99 npm test
+      #  name: npm-test
+    postBuild:
+      steps:
+      - sh: npm config set //nexus/repository/npm-private/:_auth=$(echo "admin:$(jx step credential -s nexus -k password)" | base64)
+        name: npmrc
+      - sh: npm publish  --registry=http://nexus/repository/npm-private .
+        name: npm-publish
+
+#jx step next-version --filename package.json
+#jx step next-version --filename package.json --tag --version 1.2.3 
+# lets use git to create a new version from a tag and tag git
+#jx step next-version --use-git-tag-only --tag
+# jx step get buildnumber
